@@ -16,7 +16,13 @@ module receiver_RxD (
     reg [9:0] rxshift_reg; // data byte (10 bits) [8:1] data, [0] start bit, [9] stop bit
     reg clear_bitcounter,inc_bitcounter, inc_samplecounter, clear_samplecounter; // to clear and increment the bit & sample counters
 
-	 
+	// Constants
+    parameter clk_freq = 50_000_000; // 50 MHz;
+    parameter baudrate = 9_600; // 9600 baudrate
+    parameter div_sample = 4;
+    parameter div_counter = clk_freq/ (baudrate*div_sample);
+    parameter mid_sample = (div_sample/2); // sampling data at mid bit
+    parameter div_bit = 10; 
 	 
 	 
 	 
