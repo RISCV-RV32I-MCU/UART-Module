@@ -26,7 +26,29 @@ module receiver_RxD (
 	 
 	 
 	 
-	 
+	  //UART receiver logic
+	   
+    always @(posedge clk) begin
+        if(reset) begin
+            state <=0; // idle state
+            bit_counter <= 0;
+            baudrate_counter <= 0;
+            sample_counter <= 0;
+        end
+        else begin
+            baudrate_counter <= baudrate_counter + 1;
+            if(baudrate_counter >= div_counter - 1) begin
+                // receiving state logic
+                baudrate_counter <= 0;
+                state <= next_state;
+                if(shift) rxshift_reg <= {RxD, rxshift_reg[9:1]}; // shift the data
+                if(clear_samplecounter) sample_counter <= 0;
+                if(inc_samplecounter) sample_counter <= sample_counter + 1;
+                if(clear_bitcounter) bit_counter <= 0;
+                if(inc_bitcounter) bit_counter <= bit_counter + 1;
+            end
+        end
+    end
 	 
 	 
 	 
