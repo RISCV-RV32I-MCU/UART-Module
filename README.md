@@ -70,7 +70,7 @@ This Verilog code provides a basic framework for the UART receiver module. The a
 | Signal    | Description                                      |
 | --------- | ------------------------------------------------ |
 | `clk`     | 50 MHz clock input                               |
-| `reset`   | Reset signal (Key 0)                             |
+| `reset`   | Reset signal (Key 0 - subject to change)         |
 | `RxD`     | Serial data input                                |
 | `RxData`  | Received parallel data output (8 bits)           |
 
