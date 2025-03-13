@@ -25,7 +25,7 @@ module receiver_RxD (
     parameter div_bit = 10; 
 	 
 	 
-	 
+	 assign RxData = rxshift_reg[8:1]; // output the data byte
 	  //UART receiver logic
 	   
     always @(posedge clk) begin
