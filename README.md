@@ -63,9 +63,7 @@ endmodule
 - `The sampling rate is 4`
 - `The module performs a mid-bit check to verify that the incoming signal is a valid bit & not a noisy interference`
 
-
-
-
+-------------------------------------------------------------------------------------------------------------------------------------
 
 ## Input Signals Table
 
@@ -76,6 +74,12 @@ endmodule
 | `RxD`     | Serial data input                                |
 | `RxData`  | Received parallel data output (8 bits)           |
 
+-------------------------------------------------------------------------------------------------------------------------------------
+### Test and Simulation Results
+
+![RESULT1](./graph_tb.png)
+
+![RESULT2](./console_tb.png)
 
 # Markdown Cheat Sheet
 
