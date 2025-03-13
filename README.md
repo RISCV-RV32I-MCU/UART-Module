@@ -52,6 +52,9 @@ module receiver_RxD (
     );
 endmodule
 ```
+### Module Block Diagram
+
+![UART Waveform](./receiver_module_overview.png)
 
 This Verilog code provides a basic framework for the UART receiver module. The actual implementation would involve handling the timing and synchronization required for accurate data reception.
 
