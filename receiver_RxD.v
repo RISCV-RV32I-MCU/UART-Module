@@ -51,6 +51,51 @@ module receiver_RxD (
     end
 	 
 	 
+	 // state machine logic 
+	 
+	 always @ (posedge clk)begin
+            shift <= 0;
+            clear_samplecounter <= 0;
+            inc_samplecounter <= 0;
+            clear_bitcounter <= 0;
+            inc_bitcounter <= 0;
+            next_state <= 0; // idle state
+
+            case(state)
+                0: begin
+                    if(RxD) begin // if RxD is asserted
+                        next_state <= 0; // stay in idle state
+                    end
+
+                    else begin
+                        next_state <= 1;
+                        clear_bitcounter <= 1;
+                        clear_samplecounter <= 1;
+                    end
+                end
+
+                1: begin
+                    next_state <= 1;
+							
+							// mid bit sampling at 1 (4/2 = 2 but 1 since we start from 0)
+                    if(sample_counter == mid_sample - 1) shift <= 1;
+								
+								// after a bit period i.e. 4 check if all 10 bits received
+                        if(sample_counter == div_sample - 1) begin
+                            if(bit_counter == div_bit - 1) begin
+                                next_state <= 0;
+                            end
+                            inc_bitcounter <= 1;
+                            clear_samplecounter <= 1;
+                        end
+                            else inc_samplecounter <= 1;
+                end
+                default: next_state <= 0;
+
+            endcase
+
+    end
+	 
 	 
 	 
 	 
