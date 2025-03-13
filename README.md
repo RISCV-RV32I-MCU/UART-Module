@@ -75,7 +75,7 @@ endmodule
 | `RxData`  | Received parallel data output (8 bits)           |
 
 -------------------------------------------------------------------------------------------------------------------------------------
-### Test and Simulation Results
+## Test and Simulation Results
 
 ![RESULT1](./graph_tb.png)
 
