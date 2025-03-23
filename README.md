@@ -81,82 +81,71 @@ endmodule
 
 ![RESULT2](./console_tb.png)
 
-# Markdown Cheat Sheet
 
-## Headers
-- `# Header 1`
-- `## Header 2`
-- `### Header 3`
-*(More `#` symbols indicate lower header levels.)*
+# Transmitter Module
+### Functionality
 
-## Emphasis
-- **Bold:**  
-  - `**bold text**` or `__bold text__`
-- *Italic:*  
-  - `*italic text*` or `_italic text_`
-- ***Bold & Italic:***  
-  - `***bold and italic***`
+The UART transmitter module is responsible for transmitting parallel data as serial data. It typically performs the following functions:
 
-## Strikethrough
-- `~~strikethrough~~`
+1.  **Start Bit Generation:** Generates the start bit to indicate the beginning of a new data frame.
+2.  **Data Loading:** Loads the parallel data into a shift register.
+3.  **Data Transmission:** Transmits the data bits serially at the configured baud rate.
+4.  **Stop Bit Generation:** Generates the stop bit to indicate the end of the data frame.
+5.  **Error Handling:** Handles error conditions, such as when the transmitter is busy.
 
-## Blockquotes
-- `> This is a blockquote.`
+### 8-Bit Transmitter Implementation
 
-## Lists
+Our UART transmitter module will be designed to transmit 8-bit data with one start bit and one stop bit. The steps involved in transmitting data are as follows:
 
-**Unordered Lists:**
-- Use dashes, asterisks, or plus signs:
-  - `- Item`
-  - `* Item`
-  - `+ Item`
+1.  **Idle State:** The TX line is normally in a high state.
+2.  **Start Bit:** When the module receives data, it sends a start bit (logic low).
+3.  **Data Bits:** The module transmits 8 data bits.
+4.  **Stop Bit:** After transmitting the data bits, the module transmits a stop bit (logic high).
+5.  **Transmission Complete:** After the stop bit is transmitted, the data is considered sent.
 
-**Ordered Lists:**
-- Use numbers followed by a period:
-  - `1. First item`
-  - `2. Second item`
+### Verilog Code Snippet (Conceptual)
 
-## Links
-- Inline links:
-  - `[link text](http://example.com)`
-- Reference links (requires defining reference at the end):
-  - `[link text][1]`
-  - `[1]: http://example.com`
+Below is a conceptual Verilog code snippet illustrating the key components of the UART transmitter module:
 
-## Images
-- `![alt text](http://url/to/image.jpg)`
+```verilog
+module TxD (
+    input clk,
+    input [7:0] data,
+    input transmit,
+    input reset,
+    output reg TxD,
+    output reg transmission_done // flag that is raised when transmission is done
+);
+```
 
-## Code
 
-**Inline Code:**
-- Enclose text with single backticks:
-  - `` `code` ``
 
-**Code Blocks:**
-- Use triple backticks (optionally specify language):
-  ~~~markdown
-  ```python
-  print("Hello, Markdown!")
-  ```
-  ~~~
+<u>**NOTE:** </u>
 
-## Horizontal Rules
-- Create a horizontal line with three or more dashes, asterisks, or underscores on a new line:
-  - `---`
-  - `***`
-  - `___`
+-   `The baud rate for the module is 9600 bits/sec`
 
-## Tables
-- Use pipes `|` and dashes `-` to create tables:
-  ~~~markdown
-  | Header 1 | Header 2 |
-  | -------- | -------- |
-  | Cell 1   | Cell 2   |
-  | Cell 3   | Cell 4   |
-  ~~~
 
-## Miscellaneous
-- **Escaping Characters:**  
-  - Use a backslash `\` before a symbol to render it as plain text (e.g., `\*` to display an asterisk).
-- **Line Breaks:**  
-  - End a line with two or more spaces and hit return.
+-------------------------------------------------------------------------------------------------------------------------------------
+
+## Input/Output Signals Table
+
+| Signal             | Direction | Description                                      |
+| ------------------ | --------- | ------------------------------------------------ |
+| `clk`              | Input     | Clock signal                                     |
+| `data`             | Input     | 8-bit data to be transmitted                     |
+| `transmit`         | Input     | Enable transmission                              |
+| `reset`            | Input     | Reset signal                                     |
+| `TxD`              | Output    | Serial data output                               |
+| `transmission_done`| Output    | Flag indicating transmission completion          |
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+## Test and Simulation Results
+
+![RESULT3](./txd_graph.png)
+
+![RESULT4](./txd_console_log.png)
+
+
+
+
