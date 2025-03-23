@@ -37,7 +37,37 @@ module TxD (
             baudrate_counter <= (baudrate_counter == 5208) ? 0 : baudrate_counter + 1;
 
 
-
+				  case (state)
+                0: begin // IDLE
+                    if (transmit) begin
+                        state <= 1;
+                        // Load shift register: stop bit (1), data, start bit (0)
+                        shiftright_register <= {1'b1, data, 1'b0};
+                        bit_counter <= 0;
+                        baudrate_counter <= 0; // Reset counter to align with baud rate
+                        TxD <= 0;          // Start bit begins immediately
+                    end else begin
+                        TxD <= 1;          // Remain idle
+                    end
+                end
+                1: begin // TRANSMIT
+                    if (baudrate_counter == 5208) begin
+                        shiftright_register <= shiftright_register >> 1;
+                        bit_counter <= bit_counter + 1;
+                        TxD <= shiftright_register[1]; // Next bit to be sent
+								if (bit_counter == 8) begin
+                            transmission_done <= 1; // Set flag when stop bit starts
+                        end
+                        if (bit_counter == 9) begin
+                            state <= 0;    // Return to IDLE after stop bit
+									
+                        end
+                    end
+                end
+                default: state <= 0;
+            endcase
+        end
+    end
 
 
 
