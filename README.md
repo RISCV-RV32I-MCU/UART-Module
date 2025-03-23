@@ -38,7 +38,7 @@ Our UART receiver module will be designed to receive 8-bit data with one start b
 4.  **Stop Bit:** After receiving the data bits, the receiver expects a stop bit (logic high).
 5.  **Data Ready:** If the stop bit is detected, the received data is considered valid and is made available for further processing.
 
-### Verilog Code Snippet (Conceptual)
+### Verilog Code Snippet 
 
 Below is a conceptual Verilog code snippet illustrating the key components of the UART receiver module:
 
@@ -103,8 +103,7 @@ Our UART transmitter module will be designed to transmit 8-bit data with one sta
 4.  **Stop Bit:** After transmitting the data bits, the module transmits a stop bit (logic high).
 5.  **Transmission Complete:** After the stop bit is transmitted, the data is considered sent.
 
-### Verilog Code Snippet (Conceptual)
-
+### Verilog Code Snippet
 Below is a conceptual Verilog code snippet illustrating the key components of the UART transmitter module:
 
 ```verilog
