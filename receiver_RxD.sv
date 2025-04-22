@@ -13,7 +13,7 @@ module receiver_RxD
 // Constants
 parameter clk_freq = 50_000_000; // 50 MHz;
 // parameter baudrate = 9_600; // 9600 baudrate
-// parameter div_sample = 4;
+parameter div_sample = 4;
 parameter div_bit = 10; 
 
 
