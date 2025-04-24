@@ -26,8 +26,14 @@ logic [13:0]  baudrate_counter; // baudrate = 9600 (~ 2^14 to store that number)
 logic [9:0] rxshift_reg; // data byte (10 bits) [8:1] data, [0] start bit, [9] stop bit
 logic clear_bitcounter,inc_bitcounter, inc_samplecounter, clear_samplecounter; // to clear and increment the bit & sample counters
 
-logic  div_counter = clk_freq / (baudrate_reg << 2); // (" << 2" -- Same as multiplication by 4)
-logic mid_sample = (div_sample >> 1); // sampling data at mid bit (shifting right by 1 same as division by 2)
+logic [31:0] div_counter;
+logic [1:0]  mid_sample;
+
+// recompute whenever baudrate_reg (or div_sample) changes
+always_comb begin
+	div_counter = clk_freq / (baudrate_reg << 2);
+	mid_sample  = div_sample >> 1;
+end
 	
 assign RxData = rxshift_reg[8:1]; // output the data byte
 //UART receiver logic
